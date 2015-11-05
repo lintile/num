@@ -1,2 +1,2 @@
-#!/bin/sh
+#!/bin/bash
 for f in num-*-test.sh; do NUM="../num" ./$f; done
