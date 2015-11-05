@@ -16,7 +16,10 @@ int main(int argc, char* argv[]) {
     int do_sorted = 0;
     int do_median = 0;
     int do_mode = 0;
-    for(int i = 0; i < argc; i++) {
+
+    int i = 0;
+
+    for(i = 0; i < argc; i++) {
         if(strcmp("median", argv[i]) == 0 || strcmp("med", argv[i]) == 0 ||
            strcmp("median-low", argv[i]) == 0 || strcmp("med-low", argv[i]) == 0 ||
            strcmp("medianlow", argv[i]) == 0 || strcmp("medlow", argv[i]) == 0 ||
@@ -68,7 +71,7 @@ int main(int argc, char* argv[]) {
         med = num_median(&input_sorted);
     }
 
-    for(int i = 0; i < argc; i++) {
+    for(i = 0; i < argc; i++) {
         if(i > 1) {
             printf(" ");
         }
@@ -77,7 +80,8 @@ int main(int argc, char* argv[]) {
         } else if(strcmp("sum", argv[i]) == 0 || strcmp("total", argv[i]) == 0) {
             printf(NUMT_PRINTF, num_sum(&input));
         } else if(strcmp("all", argv[i]) == 0) {
-            for(count_t j = 0; j < input.count; j++) {
+            count_t j;
+            for(j = 0; j < input.count; j++) {
                 if(j > 0) {
                     printf(" ");
                 }
@@ -110,7 +114,8 @@ int main(int argc, char* argv[]) {
                   strcmp("modelow", argv[i]) == 0) {
             printf(NUMT_PRINTF, mode.modes[0]);
         } else if(strcmp("mode", argv[i]) == 0) {
-            for(count_t j = 0; j < mode.count; j++) {
+            count_t j;
+            for(j = 0; j < mode.count; j++) {
                 if(j > 0) {
                     printf(" ");
                 }
@@ -148,6 +153,8 @@ int main(int argc, char* argv[]) {
 
 num_mode_t num_mode(num_input_t* input_sorted) {
     num_mode_t mode;
+    count_t i;
+    int cur_n = 1;
 
     mode.count = 0;
     mode.max = 4;
@@ -155,10 +162,10 @@ num_mode_t num_mode(num_input_t* input_sorted) {
     mode.modes = (num_t*)malloc(sizeof(num_t)*mode.max);
     mode.unique = 1;
 
-    int cur_n = 1;
     num_t cur_num = input_sorted->data[0];
     mode.modes[0] = cur_num;
-    for(count_t i = 1; i < input_sorted->count; i++) {
+
+    for(i = 1; i < input_sorted->count; i++) {
         if(input_sorted->data[i] == cur_num) {
             cur_n++;
         } else {
@@ -227,7 +234,8 @@ num_t num_n(num_input_t* input) {
 
 num_t num_min(num_input_t* input) {
     num_t m = input->data[0];
-    for(count_t i = 1; i < input->count; i++) {
+    count_t i;
+    for(i = 1; i < input->count; i++) {
         if(input->data[i] < m) {
             m = input->data[i];
         }
@@ -238,7 +246,8 @@ num_t num_min(num_input_t* input) {
 
 num_t num_max(num_input_t* input) {
     num_t m = input->data[0];
-    for(count_t i = 1; i < input->count; i++) {
+    count_t i;
+    for(i = 1; i < input->count; i++) {
         if(input->data[i] > m) {
             m = input->data[i];
         }
@@ -250,7 +259,8 @@ num_t num_max(num_input_t* input) {
 num_t num_range(num_input_t* input) {
     num_t ma = input->data[0];
     num_t mi = input->data[0];
-    for(count_t i = 1; i < input->count; i++) {
+    count_t i;
+    for(i = 1; i < input->count; i++) {
         if(input->data[i] > ma) {
             ma = input->data[i];
         }
@@ -268,7 +278,8 @@ num_t num_mean(num_input_t* input) {
 
 num_t num_sum(num_input_t* input) {
     num_t s = 0;
-    for(count_t i = 0; i < input->count; i++) {
+    count_t i;
+    for(i = 0; i < input->count; i++) {
         s += input->data[i];
     }
     return s;
@@ -296,7 +307,8 @@ void num_read_input(num_input_t* input) {
 num_t num_sum_of_squares(num_input_t *input) {
     num_t mean = num_mean(input);
     num_t sum = 0;
-    for(count_t i = 0; i < input->count; i++) {
+    count_t i;
+    for(i = 0; i < input->count; i++) {
         num_t n = input->data[i]-mean;
         sum += n*n;
     }
